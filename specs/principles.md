@@ -45,7 +45,7 @@ so keep it short and specific. Change it rarely, and record significant changes 
 
 ## Definition of Done (project additions)
 
-<!-- Extra items on top of the default in README.md, e.g. "docs updated", "deployed to staging". -->
+<!-- Extra items on top of the default in .claude/skills/implement-spec/SKILL.md, e.g. "docs updated", "deployed to staging". -->
 
 -
 

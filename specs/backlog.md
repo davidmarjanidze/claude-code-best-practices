@@ -4,7 +4,7 @@
 Prioritized work that has not started. Within each section, items are ordered by priority (top = first).
 
 - Take the ID from "Next ID", then increment it. IDs are never reused.
-- Track: "quick" = implement straight from this item (see README → Two tracks).
+- Track: "quick" = implement straight from this item (see the implement-spec skill → Pick the track).
          "spec"  = copy active/_template.md to active/<ID>-<slug>.md first.
 - When work starts: remove the item here and add it to progress.md (spec track),
   or delete it once it ships and is in changelog.md (quick track).

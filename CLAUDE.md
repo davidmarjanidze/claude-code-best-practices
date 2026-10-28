@@ -19,6 +19,14 @@ or backlog work.
   in `specs/backlog.md`.
 - Keep the spec and `specs/progress.md` in sync with what you actually build.
 
+# Subagents
+
+Project agents live in `.claude/agents/`. Delegate when the process is large but the result is small; do targeted or context-dependent work inline.
+
+- `oss-researcher`: before implementing an unfamiliar feature (see Workflow).
+- `code-reviewer`: after finishing a change, before committing.
+- `test-runner`: to run tests/lint/format checks without flooding context.
+
 # Workflow
 
 - For unfamiliar features, don't write from scratch. First search GitHub for open-source implementations, compare approaches, then pick one and start. Summarize which approach you chose and why before implementing.

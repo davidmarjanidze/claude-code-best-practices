@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(gh search *)",
+      "Bash(gh repo view *)",
+      "Bash(npm test *)",
+      "Bash(npm run lint *)",
+      "Bash(npx prettier --check *)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)"
+    ],
+    "deny": ["Read(./.env)", "Read(./.env.*)"]
+  }
+}

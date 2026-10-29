@@ -8,7 +8,7 @@ cd "$ROOT"
 git config core.hooksPath .githooks
 
 # Make everything executable
-chmod +x .githooks/* claude-code/scripts/*.sh .claude/hooks/*.sh .claude/statusline.sh
+chmod +x .githooks/* claude/scripts/*.sh .claude/hooks/*.sh .claude/statusline.sh
 
 # The Claude Code hooks and status line need jq
 if ! command -v jq >/dev/null 2>&1; then
@@ -20,5 +20,5 @@ fi
 echo "Installed:"
 echo "  - git hooks path -> .githooks (token budget + CLAUDE.md size check)"
 echo "  - Claude Code settings, hooks, skills, and agents are loaded from .claude/"
-echo "Run ./claude-code/scripts/cost-audit.sh to see what this repo adds to every request."
+echo "Run ./claude/scripts/cost-audit.sh to see what this repo adds to every request."
 echo "Done."

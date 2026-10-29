@@ -16,22 +16,22 @@ in two parts:
 
 **Reduce what is sent on every turn**
 
-| #   | Technique                                     | Why it saves tokens                                                          | Implemented in                                                                                                              |
-| --- | --------------------------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| 1   | Lean `CLAUDE.md` (<= 200 lines) + skills      | `CLAUDE.md` is resent every turn; a skill body loads only when used          | [`CLAUDE.md`](CLAUDE.md), [`.claude/skills/`](.claude/skills/), [check script](claude-code/scripts/check-claude-md-size.sh) |
-| 2   | Trim MCP servers; prefer CLIs                 | Every MCP tool schema is sent on every request. CLIs cost nothing until used | [`.mcp.json`](.mcp.json), [`claude-code/docs/cli-over-mcp.md`](claude-code/docs/cli-over-mcp.md)                            |
-| 3   | Compact earlier (`autoCompactWindow: 400000`) | Stops paying for a huge context on every turn of 1M-context models           | [`.claude/settings.json`](.claude/settings.json)                                                                            |
-| 4   | Handoff skill + `/clear`                      | A 40-line note replaces 100K+ tokens of history when resuming a task         | [`.claude/skills/handoff/`](.claude/skills/handoff/SKILL.md)                                                                |
+| #   | Technique                                     | Why it saves tokens                                                          | Implemented in                                                                                                         |
+| --- | --------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| 1   | Lean `CLAUDE.md` (<= 200 lines) + skills      | `CLAUDE.md` is resent every turn; a skill body loads only when used          | [`CLAUDE.md`](CLAUDE.md), [`.claude/skills/`](.claude/skills/), [check script](claude/scripts/check-claude-md-size.sh) |
+| 2   | Trim MCP servers; prefer CLIs                 | Every MCP tool schema is sent on every request. CLIs cost nothing until used | [`.mcp.json`](.mcp.json), [`claude/docs/cli-over-mcp.md`](claude/docs/cli-over-mcp.md)                                 |
+| 3   | Compact earlier (`autoCompactWindow: 400000`) | Stops paying for a huge context on every turn of 1M-context models           | [`.claude/settings.json`](.claude/settings.json)                                                                       |
+| 4   | Handoff skill + `/clear`                      | A 40-line note replaces 100K+ tokens of history when resuming a task         | [`.claude/skills/handoff/`](.claude/skills/handoff/SKILL.md)                                                           |
 
 **Reduce what tools put into context**
 
-| #   | Technique                                        | Why it saves tokens                                                                                   | Implemented in                                                                                                                                      |
-| --- | ------------------------------------------------ | ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 5   | Filter test / lint / build / install output      | A hook rewrites noisy commands so only errors and the summary reach the model                         | [`filter-command-output.sh`](.claude/hooks/filter-command-output.sh)                                                                                |
-| 6   | Block whole-file reads of large files            | A hook denies reading files over ~10K tokens without `offset`/`limit` and steers Claude to Grep first | [`guard-large-reads.sh`](.claude/hooks/guard-large-reads.sh)                                                                                        |
-| 7   | Deny reads of build artifacts                    | `node_modules`, `dist`, source maps and minified files are never useful context                       | `permissions.deny` in [`.claude/settings.json`](.claude/settings.json)                                                                              |
-| 8   | Cap Bash and MCP output size                     | `BASH_MAX_OUTPUT_LENGTH` and `MAX_MCP_OUTPUT_TOKENS` stop a single result from flooding the context   | `env` in [`.claude/settings.json`](.claude/settings.json)                                                                                           |
-| 9   | Block oversized source files at commit time + CI | Big files are expensive every time an agent reads them                                                | [pre-commit](.githooks/pre-commit), [`check-file-tokens.sh`](claude-code/scripts/check-file-tokens.sh), [CI](.github/workflows/cost-guardrails.yml) |
+| #   | Technique                                        | Why it saves tokens                                                                                   | Implemented in                                                                                                                                 |
+| --- | ------------------------------------------------ | ----------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| 5   | Filter test / lint / build / install output      | A hook rewrites noisy commands so only errors and the summary reach the model                         | [`filter-command-output.sh`](.claude/hooks/filter-command-output.sh)                                                                           |
+| 6   | Block whole-file reads of large files            | A hook denies reading files over ~10K tokens without `offset`/`limit` and steers Claude to Grep first | [`guard-large-reads.sh`](.claude/hooks/guard-large-reads.sh)                                                                                   |
+| 7   | Deny reads of build artifacts                    | `node_modules`, `dist`, source maps and minified files are never useful context                       | `permissions.deny` in [`.claude/settings.json`](.claude/settings.json)                                                                         |
+| 8   | Cap Bash and MCP output size                     | `BASH_MAX_OUTPUT_LENGTH` and `MAX_MCP_OUTPUT_TOKENS` stop a single result from flooding the context   | `env` in [`.claude/settings.json`](.claude/settings.json)                                                                                      |
+| 9   | Block oversized source files at commit time + CI | Big files are expensive every time an agent reads them                                                | [pre-commit](.githooks/pre-commit), [`check-file-tokens.sh`](claude/scripts/check-file-tokens.sh), [CI](.github/workflows/cost-guardrails.yml) |
 
 **Use cheaper models and less reasoning**
 
@@ -44,24 +44,24 @@ in two parts:
 
 **Make spend visible**
 
-| #   | Technique         | Why it saves tokens                                                                       | Implemented in                                                           |
-| --- | ----------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| 14  | Cost status line  | Live session cost, turning yellow/red past thresholds; people stop when they see it climb | [`.claude/statusline.sh`](.claude/statusline.sh)                         |
-| 15  | Cost audit script | Shows what the repo adds to every request and which files are most expensive to read      | [`claude-code/scripts/cost-audit.sh`](claude-code/scripts/cost-audit.sh) |
-| 16  | Team habits guide | `/clear`, focused `/compact`, specific prompts, keeping the prompt cache warm             | [`claude-code/docs/habits.md`](claude-code/docs/habits.md)               |
+| #   | Technique         | Why it saves tokens                                                                       | Implemented in                                                 |
+| --- | ----------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| 14  | Cost status line  | Live session cost, turning yellow/red past thresholds; people stop when they see it climb | [`.claude/statusline.sh`](.claude/statusline.sh)               |
+| 15  | Cost audit script | Shows what the repo adds to every request and which files are most expensive to read      | [`claude/scripts/cost-audit.sh`](claude/scripts/cost-audit.sh) |
+| 16  | Team habits guide | `/clear`, focused `/compact`, specific prompts, keeping the prompt cache warm             | [`claude/docs/habits.md`](claude/docs/habits.md)               |
 
 ### Setup
 
 ```bash
 # from the root of the target repository (copy these files in first)
-./claude-code/scripts/install.sh
-./claude-code/scripts/cost-audit.sh   # optional: see your baseline
+./claude/scripts/install.sh
+./claude/scripts/cost-audit.sh   # optional: see your baseline
 ```
 
 `install.sh` points git at `.githooks/`, makes the scripts executable, and
 checks that `jq` is installed (the Claude Code hooks need it).
 
-Commit `.claude/`, `.mcp.json`, `.githooks/`, `.github/`, `claude-code/`,
+Commit `.claude/`, `.mcp.json`, `.githooks/`, `.github/`, `claude/`,
 `.gitignore` and `.token-budget-ignore`. Everyone who clones the repo and runs
 `install.sh` gets the same setup. Then fill in Part 1 of `CLAUDE.md`.
 
@@ -73,14 +73,14 @@ Commit `.claude/`, `.mcp.json`, `.githooks/`, `.github/`, `claude-code/`,
 conventions). PR review, migrations and handoff procedures live in
 `.claude/skills/*/SKILL.md`; only their one-line `description` is always
 loaded, so keep descriptions short (`cost-audit.sh` warns past 250 chars).
-`claude-code/scripts/check-claude-md-size.sh` fails the commit if `CLAUDE.md`
+`claude/scripts/check-claude-md-size.sh` fails the commit if `CLAUDE.md`
 passes 200 lines.
 
 #### Fewer MCP servers (2)
 
 `.mcp.json` lists only the servers the team uses daily (none by default).
 Everything else should be replaced by its CLI or moved to personal user
-config. See [`claude-code/docs/cli-over-mcp.md`](claude-code/docs/cli-over-mcp.md).
+config. See [`claude/docs/cli-over-mcp.md`](claude/docs/cli-over-mcp.md).
 
 #### Handoff instead of long sessions (4)
 
@@ -151,10 +151,10 @@ A status line in project settings replaces each person's own; delete the
 
 | Check                        | Command                                                                                   |
 | ---------------------------- | ----------------------------------------------------------------------------------------- |
-| All hooks + status line      | `./claude-code/scripts/test-hooks.sh`                                                     |
+| All hooks + status line      | `./claude/scripts/test-hooks.sh`                                                          |
 | Budget hook blocks big files | `head -c 30000 /dev/urandom \| base64 > big.txt && git add big.txt && git commit -m test` |
-| Whole-repo budget            | `./claude-code/scripts/check-file-tokens.sh --all`                                        |
-| What every request costs     | `./claude-code/scripts/cost-audit.sh`, then `/context` in Claude Code                     |
+| Whole-repo budget            | `./claude/scripts/check-file-tokens.sh --all`                                             |
+| What every request costs     | `./claude/scripts/cost-audit.sh`, then `/context` in Claude Code                          |
 | Subagent model               | Check usage per model in your billing dashboard                                           |
 
 ### Caveats

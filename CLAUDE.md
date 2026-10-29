@@ -6,9 +6,9 @@ Task-specific procedures belong in `.claude/skills/`.
 ## Commands
 
 ```bash
-./claude-code/scripts/install.sh      # once per clone: git hooks + jq check
-./claude-code/scripts/cost-audit.sh   # what this repo adds to every request
-./claude-code/scripts/test-hooks.sh   # smoke-test the Claude Code hooks
+./claude/scripts/install.sh      # once per clone: git hooks + jq check
+./claude/scripts/cost-audit.sh   # what this repo adds to every request
+./claude/scripts/test-hooks.sh   # smoke-test the Claude Code hooks
 ```
 
 ## Conventions

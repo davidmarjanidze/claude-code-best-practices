@@ -13,10 +13,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Token budget (all tracked files)
-        run: bash claude-code/scripts/check-file-tokens.sh --all
+        run: bash claude/scripts/check-file-tokens.sh --all
       - name: CLAUDE.md size
-        run: bash claude-code/scripts/check-claude-md-size.sh
+        run: bash claude/scripts/check-claude-md-size.sh
       - name: Hook smoke tests
         run: |
           chmod +x .claude/hooks/*.sh .claude/statusline.sh
-          bash claude-code/scripts/test-hooks.sh
+          bash claude/scripts/test-hooks.sh

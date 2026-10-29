@@ -48,10 +48,10 @@ Anything that changes that prefix makes the next request pay full price.
 
 ## Measure
 
-| Tool                                  | Shows                                                     |
-| ------------------------------------- | --------------------------------------------------------- |
-| Status line (this repo)               | Model and running session cost, always visible            |
-| `/cost`, `/usage`                     | Session token usage and plan limits                       |
-| `/context`                            | What fills the context: system prompt, tools, MCP, memory |
-| `./claude-code/scripts/cost-audit.sh` | What this repo adds to every request; largest files       |
-| Console / billing dashboard           | Spend per model and per user over time                    |
+| Tool                             | Shows                                                     |
+| -------------------------------- | --------------------------------------------------------- |
+| Status line (this repo)          | Model and running session cost, always visible            |
+| `/cost`, `/usage`                | Session token usage and plan limits                       |
+| `/context`                       | What fills the context: system prompt, tools, MCP, memory |
+| `./claude/scripts/cost-audit.sh` | What this repo adds to every request; largest files       |
+| Console / billing dashboard      | Spend per model and per user over time                    |

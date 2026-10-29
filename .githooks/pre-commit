@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+
+"$ROOT/claude-code/scripts/check-file-tokens.sh"
+"$ROOT/claude-code/scripts/check-claude-md-size.sh"

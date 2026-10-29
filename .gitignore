@@ -1,3 +1,8 @@
 node_modules
 package-lock.json
 .DS_Store
+
+# Personal Claude Code overrides and session notes
+.claude/settings.local.json
+.claude/handoff.md
+CLAUDE.local.md

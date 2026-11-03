@@ -74,7 +74,9 @@ conventions). PR review, migrations and handoff procedures live in
 `.claude/skills/*/SKILL.md`; only their one-line `description` is always
 loaded, so keep descriptions short (`cost-audit.sh` warns past 250 chars).
 `claude/scripts/check-claude-md-size.sh` fails the commit if `CLAUDE.md`
-passes 200 lines.
+passes 200 lines. To get back under the limit, ask Claude to _"compress
+CLAUDE.md"_: the `compress-claude-md` skill finds instructions that can move
+into skills, proposes the moves, and applies them once you approve.
 
 #### Fewer MCP servers (2)
 

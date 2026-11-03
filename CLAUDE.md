@@ -22,6 +22,7 @@ Task-specific procedures belong in `.claude/skills/`.
 - Reviewing a pull request: use the `pr-review` skill.
 - Writing or running database/schema migrations: use the `migrations` skill.
 - Ending or pausing a long task: use the `handoff` skill.
+- Shrinking this file under 200 lines: use the `compress-claude-md` skill.
 
 ## Cost rules for agents
 

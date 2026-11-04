@@ -23,6 +23,7 @@ Task-specific procedures belong in `.claude/skills/`.
 - Writing or running database/schema migrations: use the `migrations` skill.
 - Ending or pausing a long task: use the `handoff` skill.
 - Shrinking this file under 200 lines: use the `compress-claude-md` skill.
+- Finding where agents search too long or trust stale docs: use the `retro` skill.
 
 ## Cost rules for agents
 

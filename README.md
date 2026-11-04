@@ -177,6 +177,7 @@ A status line in project settings replaces each person's own; delete the
 | `CLAUDE.md`                      | Project memory loaded every session: commands, style, workflow rules. |
 | `specs/`                         | Source of truth: principles, roadmap, backlog, progress, specs, ADRs. |
 | `.claude/skills/implement-spec/` | Skill Claude loads when you ask it to implement or plan a spec task.  |
+| `.claude/skills/retro/`          | `/retro`: mines recent sessions for slow searches and stale docs.     |
 | `.claude/agents/`                | `code-reviewer`, `oss-researcher` and `test-runner` subagents.        |
 
 Use it in a new project by copying `CLAUDE.md`, `specs/` and `.claude/` into
